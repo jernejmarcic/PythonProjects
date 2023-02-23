@@ -24,6 +24,23 @@
 #     Enter d: -6
 #     w = 5 - 6 i
 # =============================================================================
+a = int(input('Enter a: '))
+while a == 0:
+    print('a cannot be 0')
+    a = int(input('Enter a: '))
+
+b = int(input('Enter b: '))
+z = complex(a, b)
+print('z =', z)
+
+c = int(input('Enter c: '))
+while c == 0:
+    print('c cannot be 0')
+    c = int(input('Enter c: '))
+
+d = int(input('Enter d: '))
+w = complex(c, d)
+print('w =', w)
 
 # =====================================================================@020236=
 # 2. podnaloga
