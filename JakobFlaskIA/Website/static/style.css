@@ -1,0 +1,249 @@
+@charset "UTF-8";
+:root {
+  /* Define default theme */
+  --body-background: var(--body-background-dark);
+  --text-color: var(--text-color-dark);
+  --secondary-background: var(--secondary-background-dark);
+  --foreground-color: var(--foreground-color-dark);
+  --navbar-background: var(--navbar-background-dark);
+  --navbar-text-color: var(--navbar-text-color-dark);
+  --navbar-hover-background: var(--navbar-hover-background-dark);
+  --link-color: var(--link-color-dark);
+  /* Dark Theme */
+  --body-background-dark: rgba(42, 37, 72, 0.95);
+  --text-color-dark: #E0E0E0;
+  --secondary-background-dark: rgba(43, 37, 72, 0.85);
+  --foreground-color-dark: #FFFFFF;
+  --navbar-background-dark: rgba(255, 255, 255, 0.7);
+  --navbar-text-color-dark: #E0E0E0;
+  --navbar-hover-background-dark: rgba(255, 255, 255, 0.9);
+  --link-color-dark: #C284E3;
+  /* Light Theme */
+  --body-background-light: linear-gradient(270deg, #bdc3c7, #2c3e50);
+  --text-color-light: #333;
+  --secondary-background-light: rgba(220, 198, 234, 0.85);
+  --foreground-color-light: #000000;
+  --navbar-background-light: rgba(0, 0, 0, 0.7);
+  --navbar-text-color-light: #333;
+  --navbar-hover-background-light: rgba(0, 0, 0, 0.9);
+  --link-color-light: #7D5BA6;
+  /* Common Properties */
+  --border-radius-navbar: 15px;
+  --transition-duration: 0.3s;
+  --link-margin: 15px;
+  --link-font-weight: bold;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--body-background);
+  color: var(--text-color);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+  margin: 0;
+  padding: 0;
+}
+body.dark-theme {
+  --body-background: var(--body-background-dark);
+  --text-color: var(--text-color-dark);
+  --secondary-background: var(--secondary-background-dark);
+  --foreground-color: var(--foreground-color-dark);
+  --navbar-background: var(--navbar-background-dark);
+  --navbar-text-color: var(--navbar-text-color-dark);
+  --navbar-hover-background: var(--navbar-hover-background-dark);
+  --link-color: var(--link-color-dark);
+}
+body.light-theme {
+  --body-background: var(--body-background-light);
+  --text-color: var(--text-color-light);
+  --secondary-background: var(--secondary-background-light);
+  --foreground-color: var(--foreground-color-light);
+  --navbar-background: var(--navbar-background-light);
+  --navbar-text-color: var(--navbar-text-color-light);
+  --navbar-hover-background: var(--navbar-hover-background-light);
+  --link-color: var(--link-color-light);
+}
+body .navbar {
+  background: var(--navbar-background);
+  color: var(--navbar-text-color);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius-navbar);
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: background-color var(--transition-duration);
+}
+body .navbar a {
+  text-decoration: none;
+  color: var(--link-color);
+  margin: var(--link-margin);
+  font-weight: var(--link-font-weight);
+  transition: color var(--transition-duration);
+}
+body .navbar:hover {
+  background: var(--navbar-hover-background);
+}
+body .content {
+  margin-top: 60px;
+}
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  color: var(--foreground-color);
+}
+body p, body li, body a {
+  color: var(--text-color);
+}
+body .toggle-switch {
+  position: relative;
+  width: 60px;
+  height: 28px;
+  margin: auto;
+  background: #83d8ff;
+  border-radius: 24px;
+  transition: background-color 0.3s linear;
+}
+body .toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+body .toggle-switch label {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+body .toggle-switch label:before {
+  content: "☀️";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.4s;
+  text-align: center;
+  line-height: 20px;
+}
+body .toggle-switch input:checked + label {
+  background: #091921;
+}
+body .toggle-switch input:checked + label:before {
+  content: "🌑";
+  transform: translateX(32px);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body .form-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 450px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .form-box .inputbox {
+  position: relative;
+  margin: 30px 0;
+  width: 310px;
+  border-bottom: 2px solid #fff;
+}
+body .form-box .inputbox label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.5s;
+}
+body .form-box .inputbox input {
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  padding: 0 35px 0 5px;
+  color: #fff;
+}
+body .form-box .inputbox input:focus ~ label, body .form-box .inputbox input:valid ~ label {
+  top: -5px;
+}
+body .form-box .inputbox ion-icon {
+  position: absolute;
+  right: 8px;
+  color: #fff;
+  font-size: 1.2em;
+  top: 20px;
+}
+body .form-box .forget {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 15px;
+  font-size: 0.9em;
+  color: #fff;
+}
+body .form-box .forget label {
+  display: flex;
+  align-items: center;
+}
+body .form-box .forget label input[type=checkbox] {
+  margin-right: 6px;
+}
+body .form-box .forget label a {
+  color: #fff;
+  text-decoration: none;
+}
+body .form-box .forget label a:hover {
+  text-decoration: underline;
+}
+body .form-box .forget label:nth-child(2) {
+  order: 1;
+}
+body .form-box button {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  background: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+}
+body .form-box .register {
+  font-size: 0.9em;
+  color: #fff;
+  text-align: center;
+  margin: 25px 0 10px;
+}
+body .form-box .register p a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+}
+body .form-box .register p a:hover {
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=style.css.map */
