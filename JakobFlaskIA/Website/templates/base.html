@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Home {% endblock %}</title>
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+<body>
+
+<script
+type="text/javascript"
+src="{{ url_for('static', filename='script.js') }}"
+></script>
+
+
+<canvas id="canvas"></canvas>
+
+
+<nav class="navbar" id="navbar">
+    <a href="/">Home</a>
+    <a href="/sign-up">Sign Up</a>
+    <a href="/login">Login</a>
+    <a href="/logout">Logout</a>
+    <!-- Dark Mode Toggle -->
+    <div class="toggle-switch">
+        <input type="checkbox" id="dark-mode-toggle" class="checkbox">
+        <label for="dark-mode-toggle" class="label">
+            <span class="icon day"></span> <!-- Sun icon for light mode -->
+            <span class="icon night"></span> <!-- Moon icon for dark mode -->
+        </label>
+    </div>
+</nav>
+
+<div class="content">
+
+{% block content %}
+{% endblock %}
+</div>
+
+
+    <!-- Main content of your notes app -->
+    <div class="content">
+        <!-- Your app's content goes here -->
+    </div>
+</body>
+</html>
