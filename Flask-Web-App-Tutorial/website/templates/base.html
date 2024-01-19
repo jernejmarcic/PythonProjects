@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="../static/style.css">
+<script
+type="text/javascript"
+src="{{ url_for('static', filename='script.js') }}"
+></script>
+<script src="https://cdn.tiny.cloud/1/4su0udd3750a1hzzjb9gmg77e8gn3surddufgzzsyt2ew7ry/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body class="{% if dark_mode %}dark-theme{% else %}light-theme{% endif %}">
+
+
+    <!-- Custom Navbar with Dark Mode Toggle -->
+    <nav class="navbar" id="navbar">
+    <button id="sidebarToggle" onclick="toggleSidebar()" class="btn">☰</button>
+        <a href="/">Home</a>
+        {% if user.is_authenticated %}
+        <a href="/logout">Logout</a>
+        {% else %}
+        <a href="/login">Login</a>
+        <a href="/sign-up">Sign Up</a>
+        {% endif %}
+        <div class="toggle-switch">
+            <input type="checkbox" id="dark-mode-toggle" class="checkbox">
+            <label for="dark-mode-toggle" class="label">
+                <span class="icon day"></span> <!-- Sun icon for light mode -->
+                <span class="icon night"></span> <!-- Moon icon for dark mode -->
+            </label>
+        </div>
+    </nav>
+
+    <!-- Bootstrap Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap JavaScripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+{% block javascript %}
+    <script type="text/javascript">
+      function deleteNote(noteId) {
+  fetch("/delete-note", {
+    method: "POST",
+    body: JSON.stringify({ noteId: noteId }),
+  }).then((_res) => {
+    window.location.href = "/";
+  });
+  }
+</script>
+{% endblock %}
+
+</body>
+</html>

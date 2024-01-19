@@ -1,0 +1,466 @@
+:root {
+  /* Common Properties */
+  --border-radius-navbar: 15px;
+  --transition-duration: 0.3s;
+  --link-margin: 15px;
+  --link-font-weight: bold;
+
+  /* Dark Theme (Night) */
+  --body-background-dark: #1a1a1a; // Dark gray for night mode background
+  --text-color-dark: #E0E0E0; // Light grey text for night mode
+  --secondary-background-dark: #2a2a2a; // Slightly lighter dark grey for secondary elements
+  --foreground-color-dark: #FFFFFF; // White for foreground elements
+  --navbar-background-dark: #333333; // Darker shade for navbar
+  --navbar-text-color-dark: #E0E0E0; // Light grey for navbar text
+  --navbar-hover-background-dark: #444444; // Slightly lighter dark shade for hover
+  --link-color-dark: #C284E3; // Soft purple for links
+
+  /* Light Theme (Day/Sky) */
+  --body-background-light: #dae8fc; // Soft sky blue for day mode background
+  --text-color-light: #1a1a1a; // Dark text for readability in day mode
+  --secondary-background-light: #f0f8ff; // Very light blue, like a clear sky
+  --foreground-color-light: #000000; // Black for foreground elements
+  --navbar-background-light: #f0f8ff; // Light sky blue for navbar
+  --navbar-text-color-light: #1a1a1a; // Dark text on light navbar
+  --navbar-hover-background-light: #e1effe; // Slightly darker blue for hover
+  --link-color-light: #1e90ff; // Vivid blue for links, simulating clear sky
+
+  --twinkle-duration: 4s;
+
+}
+
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--body-background);
+  color: var(--text-color);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+  margin: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+
+
+  &.dark-theme {
+    --body-background: var(--body-background-dark);
+    --text-color: var(--text-color-dark);
+    --secondary-background: var(--secondary-background-dark);
+    --foreground-color: var(--foreground-color-dark);
+    --navbar-background: var(--navbar-background-dark);
+    --navbar-text-color: var(--navbar-text-color-dark);
+    --navbar-hover-background: var(--navbar-hover-background-dark);
+    --link-color: var(--link-color-dark);
+  }
+
+  &.light-theme {
+    --body-background: var(--body-background-light);
+    --text-color: var(--text-color-light);
+    --secondary-background: var(--secondary-background-light);
+    --foreground-color: var(--foreground-color-light);
+    --navbar-background: var(--navbar-background-light);
+    --navbar-text-color: var(--navbar-text-color-light);
+    --navbar-hover-background: var(--navbar-hover-background-light);
+    --link-color: var(--link-color-light);
+  }
+
+
+  .navbar {
+    background: var(--navbar-background);
+    color: var(--navbar-text-color);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-navbar);
+    padding: 10px;
+    text-align: center;
+    justify-content: center;
+    width: auto;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    top: 0%;
+    left: 10%;
+    z-index: 1000;
+    transition: background-color var(--transition-duration);
+
+    a {
+      text-decoration: none;
+      color: var(--link-color);
+      margin: var(--link-margin);
+      font-weight: var(--link-font-weight);
+      transition: color var(--transition-duration);
+    }
+
+    &:hover {
+      background: var(--navbar-hover-background);
+    }
+  }
+#sidebarToggle {
+    background-color: var(--navbar-background-dark);
+    color: var(--text-color-dark);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+
+    &:hover {
+      background-color: var(--navbar-hover-background-dark);
+      color: var(--link-color-dark);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .content {
+    margin-top: 60px;
+    // Add more content styles here
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--foreground-color); // Titles color
+    // Add more styles for headings
+  }
+
+  p, li, a {
+    color: var(--text-color); // Text color
+    // Add more styles for text elements
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 28px;
+    margin: auto;
+    background: #83d8ff; // Default to light mode background
+    border-radius: 24px;
+    transition: background-color 0.3s linear;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    label {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      overflow: hidden; // Hide the overflow to keep rounded edges
+
+      &:before {
+        content: "☀️"; // Sun icon
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 4px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: .4s;
+        text-align: center;
+        line-height: 20px;
+      }
+    }
+
+    input:checked + label {
+      background: #091921; // Dark mode background
+
+      &:before {
+        content: "🌑"; // Moon icon
+        transform: translateX(32px); // Move to the right
+        background-color: rgba(255, 255, 255, 0.5); // Semi-transparent white for the moon
+      }
+    }
+  }
+}
+
+
+  .form-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .inputbox {
+      position: relative;
+      margin: 30px 0;
+      width: 310px;
+      border-bottom: 2px solid #fff;
+
+      label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 1em;
+        pointer-events: none;
+        transition: 0.5s;
+      }
+
+      input {
+        width: 100%;
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 1em;
+        padding: 0 35px 0 5px;
+        color: #fff;
+
+        &:focus ~ label,
+        &:valid ~ label {
+          top: -5px;
+        }
+      }
+
+      ion-icon {
+        position: absolute;
+        right: 8px;
+        color: #fff;
+        font-size: 1.2em;
+        top: 20px;
+      }
+    }
+
+    .forget {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0 15px;
+      font-size: 0.9em;
+      color: #fff;
+
+      label {
+        display: flex;
+        align-items: center;
+
+        input[type="checkbox"] {
+          margin-right: 6px;
+        }
+
+        a {
+          color: #fff;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        &:nth-child(2) {
+          order: 1;
+        }
+      }
+    }
+
+    button {
+      width: 100%;
+      height: 40px;
+      border-radius: 40px;
+      background: #fff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+    }
+
+    .register {
+      font-size: 0.9em;
+      color: #fff;
+      text-align: center;
+      margin: 25px 0 10px;
+
+      p a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.3); // Semi-transparent white
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .close {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.2rem;
+  }
+}
+
+// Specific styles for different types of alerts
+.alert-danger {
+  border-color: rgba(220, 53, 69, 0.3); // Adjust the color to match your design
+
+  .close {
+    color: rgba(220, 53, 69, 0.6); // Darker color for the close button
+  }
+}
+
+.alert-success {
+  border-color: rgba(40, 167, 69, 0.3); // Adjust the color to match your design
+
+  .close {
+    color: rgba(40, 167, 69, 0.6); // Darker color for the close button
+  }
+}
+
+.main-container {
+    max-height: 80%;
+    height: 80%;
+}
+
+.sidebar {
+  background-color: var(--secondary-background);
+  backdrop-filter: blur(10px);
+  color: var(--text-color-dark);
+  border-radius: 15px; // Rounded edges for the entire sidebar
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  left: -250px; // Initially hidden
+  top: 50%;
+  transform: translateY(-50%); // Centered vertically
+  width: 250px;
+  margin-left: 15px;
+  height: 80%; // Adjust height as needed
+  overflow-y: auto;
+  transition: left 0.3s;
+  z-index: 1000;
+
+.sidebar-resize-handle {
+    position: absolute;
+    right: -5px; // Position it on the right edge
+    top: 0;
+    width: 10px; // Width of the drag handle
+    height: 100%;
+    cursor: ew-resize; // Cursor to indicate resize ability
+    z-index: 1101; // Above sidebar content
+  }
+  // Toggle button
+
+
+    &:hover {
+      background-color: var(--navbar-hover-background);
+    }
+  }
+
+  .list-group-item {
+    background: transparent;
+    border: none;
+    color: var(--foreground-color);
+
+    &:hover {
+      background-color: var(--navbar-hover-background);
+      color: var(--link-color-dark);
+      cursor: pointer;
+    }
+  }
+
+  // Add any other nested styles here
+
+
+.form-container {
+    background-color: var(--body-background);
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left 0.3s;
+
+    /* Add additional styles as needed */
+}
+
+textarea#note.form-control {
+    height: 90%; /* Adjust this value as needed */
+    /* Additional styles for the textarea */
+}
+
+/* Styles for the form and its elements */
+form {
+    max-width: 60%; /* Maximum width of the form */
+    margin: auto; /* Center the form */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+
+}
+
+input[type="text"], textarea {
+    width: 100%; /* Full width */
+    padding: 10px;
+    margin-bottom: 10px; /* Space between elements */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    cursor: pointer;
+}
+
+/* Adjust form container margin when sidebar is open */
+.sidebar-open .form-container {
+    margin-left: 250px; /* Same as sidebar width */
+}
+
+.tox {
+  & .tox-editor-container {
+    background-color: var(--body-background); // Use variable for dark background
+    color: var(--text-color); // Use variable for light text
+  }
+
+  & .tox-toolbar {
+    background: var(--secondary-background); // Use variable for darker toolbar
+    border-bottom: 1px solid var(--secondary-background), 5%; // Slightly darker border
+  }
+
+  & .tox-toolbar__group button {
+    color: var(--text-color); // Use variable for light button text
+  }
+
+  & .tox-editor-header {
+    background: var(--secondary-background), 10%; // Dark header, slightly darker than toolbar
+  }
+
+  // Add more customizations as needed
+}
+
+

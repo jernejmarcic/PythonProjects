@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<script>
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebar');
+        if (sidebar.style.left === '-250px' || sidebar.style.left === '') {
+            sidebar.style.left = '0';
+        } else {
+            sidebar.style.left = '-250px';
+        }
+    }
+</script>
+
+<div class="main-container">
+    <div id="sidebar" class="sidebar">
+<div class="toggle-btn"></div>
+{% set capitalized_name = current_user.first_name | capitalize %}
+{% set name_end = "s" if capitalized_name.endswith('s') else "'s" %}
+<h2 >{{ capitalized_name }}{{ name_end }} Notes:</h2>
+        <!-- Sidebar content -->
+
+{% for note in user.notes %}
+  <div class="list-group-item">
+    <strong>{{ note.title }}</strong> - {{ note.date.strftime('%Y-%m-%d') | safe }}
+    <button type="button" onclick='editNote({{ note.id }}, {{ note.title | tojson }}, {{ note.data | tojson }})'>Edit</button>
+    <button type="button" class="close" onclick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div id="note-data-{{ note.id }}" style="display: none;">{{ note.data | tojson }}</div>
+  </div>
+{% endfor %}
+    <div class="sidebar-resize-handle"></div>
+    </div>
+
+ <div class="form-container">
+        <form method="POST">
+ <input type="hidden" name="note_id" id="note-id" value="">
+    <input type="text" name="title" id="title" placeholder="Enter title">
+     <script>
+  tinymce.init({
+    selector: 'textarea',
+    skin: "oxide-dark",
+    content_css: '../static/style.css',
+    plugins: 'save ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+  });
+</script>
+<textarea name="note" id="note" class="form-control">
+</textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+  </div>
+</form>
+    </div>
+</div>s
+
+
+{% endblock %}
